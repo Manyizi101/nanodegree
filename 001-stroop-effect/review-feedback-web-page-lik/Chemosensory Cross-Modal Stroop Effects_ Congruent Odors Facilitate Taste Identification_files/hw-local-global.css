@@ -1,0 +1,31 @@
+
+/* 
+################################################################## 
+## 
+##   THIS IS A GENERATED FILE. 
+## 
+##   ANY CHANGES YOU MAKE DIRECTLY TO THIS FILE WILL BE OVERWRITTEN 
+##   AND LOST THE NEXT TIME THIS FILE IS GENERATED. 
+## 
+##  (This file last generated: Sep 23, 2015, 12:37 P.M.) 
+## 
+################################################################## 
+ */
+
+/* ##### BELOW added by: file:/highwire/webapps/chemse/resources/publisher/build/local-css-vars.base.xml ##### */
+
+
+/*This css is included as hw-local-global.css. It is in the publisher site-conf.mix-in.xml so that a local site-conf.mix-in is not needed.  The result is that definitions can accidentally be overridden by publisher css by page-id, which is included AFTER the match-all-pages css. If local definitions are more specific, they won't be overridden.*/
+
+
+
+
+
+#pageid-tag-index #content-block ul.cit-auth-list {display:inline-block;}
+#pageid-content #content-block div.article span.court-name{ margin-right: 5px;}
+#hovering-abs .abstract-view .court-name { margin-right: 5px; }
+#hovering-abs .abstract-view .named-content.p-label { margin-right: 5px; }
+#pageid-content #content-block div.article span.court-judge-date { margin-right: 5px; }
+#hovering-abs .abstract-view span.court-judge-date { margin-right: 5px; }
+
+/* ##### END OF ADDED BLOCK ##### */
