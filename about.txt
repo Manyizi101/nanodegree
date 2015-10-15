@@ -1,1 +1,2 @@
-This file will contain project description
+This repository contains code and solutions for Data Analyst Nanodegree projects.
+Most of the work is being done through iPython notebooks.
