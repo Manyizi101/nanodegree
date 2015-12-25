@@ -303,7 +303,7 @@ Probability of taking observation (ENTRIESn_hourly) from the rain data which is 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[157]:</div>
+<div class="prompt input_prompt">In&nbsp;[90]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -325,7 +325,7 @@ Probability of taking observation (ENTRIESn_hourly) from the rain data which is 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[158]:</div>
+<div class="prompt input_prompt">In&nbsp;[91]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">data_rain</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;ENTRIESn_hourly&quot;</span><span class="p">][</span><span class="n">data</span><span class="o">.</span><span class="n">rain</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
@@ -342,7 +342,7 @@ Probability of taking observation (ENTRIESn_hourly) from the rain data which is 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now we can compare entries on the days that it rains vs. the ones when it doesn't.</p>
+<p>Now we can compare entries on the days that rains vs. the ones when it doesn't.</p>
 <p>To detect which test we should use we first need to confirm or deny some assumptions we have about data.<br>
 We'll use Shapiro-Wilk test to see weather our data is normally distributed.</p>
 
@@ -351,7 +351,7 @@ We'll use Shapiro-Wilk test to see weather our data is normally distributed.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[159]:</div>
+<div class="prompt input_prompt">In&nbsp;[92]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">w</span><span class="p">,</span><span class="n">p_rain</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">shapiro</span><span class="p">(</span><span class="n">data_rains</span><span class="p">)</span>
@@ -395,7 +395,7 @@ This test doesn't assume any particular probability distribution.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[160]:</div>
+<div class="prompt input_prompt">In&nbsp;[93]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">&quot;ENTRIESn_hourly&quot;</span><span class="p">))</span> <span class="o">+</span> <span class="n">geom_histogram</span><span class="p">()</span> <span class="o">+</span> \
@@ -672,11 +672,11 @@ wBj/B2/fTp1Mi8eAAAAAAElFTkSuQmCC
 
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[160]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[93]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;ggplot: (8789790701089)&gt;</pre>
+<pre>&lt;ggplot: (8789794490361)&gt;</pre>
 </div>
 
 </div>
@@ -738,7 +738,7 @@ We can see that most of the time ridership is relatively low and high ridership 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[178]:</div>
+<div class="prompt input_prompt">In&nbsp;[94]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">u</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">mannwhitneyu</span><span class="p">(</span><span class="n">data_rains</span><span class="p">,</span> <span class="n">data_no_rain</span><span class="p">)</span>
@@ -785,16 +785,14 @@ entries_mean_weekday_no_rain_ridership = 1845.53943866
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="However">However<a class="anchor-link" href="#However">&#182;</a></h4><p>Since the sample data from one month is really small sample there might be other factors influencing this result.<br>
-One such thing might be our assumption that rain is equally distributed throughout the month.<br>
-This might not be the case since we only have the data for one individual month.</p>
+<h4 id="However">However<a class="anchor-link" href="#However">&#182;</a></h4><p>Since the sample data from one month is really small sample there might be other factors influencing this result.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[162]:</div>
+<div class="prompt input_prompt">In&nbsp;[107]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">q</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
@@ -834,167 +832,8 @@ This might not be the case since we only have the data for one individual month.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can see that for this particular set of data, on average, it rains nearly twice as often on the days which fall on weekend than the ones which fall on weekday.<br>
-In case that ridership during the weekend is significantly different than the rest of the week we might come to a different conclusion about rain effect on ridership and put more emphasis on the influence of weekend on ridership.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[163]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">data_rain_weekday</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;ENTRIESn_hourly&quot;</span><span class="p">][(</span><span class="n">data</span><span class="o">.</span><span class="n">rain</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">weekday</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span>
-<span class="n">data_no_rain_weekday</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;ENTRIESn_hourly&quot;</span><span class="p">][(</span><span class="n">data</span><span class="o">.</span><span class="n">rain</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">weekday</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span>
-
-<span class="n">data_rain_weekend</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;ENTRIESn_hourly&quot;</span><span class="p">][(</span><span class="n">data</span><span class="o">.</span><span class="n">rain</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">weekday</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span>
-<span class="n">data_no_rain_weekend</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;ENTRIESn_hourly&quot;</span><span class="p">][(</span><span class="n">data</span><span class="o">.</span><span class="n">rain</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">weekday</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[164]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">u</span><span class="p">,</span><span class="n">p_weekday</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">mannwhitneyu</span><span class="p">(</span><span class="n">data_rain_weekday</span><span class="p">,</span> <span class="n">data_no_rain_weekday</span><span class="p">)</span>
-<span class="n">u</span><span class="p">,</span><span class="n">p_weekend</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">mannwhitneyu</span><span class="p">(</span><span class="n">data_rain_weekend</span><span class="p">,</span> <span class="n">data_no_rain_weekend</span><span class="p">)</span>
-
-<span class="k">print</span> <span class="s">&quot;p_weekday: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p_weekday</span> <span class="o">*</span> <span class="n">two_tail_test_multiplier</span><span class="p">)</span>
-<span class="k">print</span> <span class="s">&quot;p_weekend: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p_weekend</span> <span class="o">*</span> <span class="n">two_tail_test_multiplier</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>p_weekday: 0.106538831417
-p_weekend: 0.043933047194
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We can see now from our p values that the <strong>rain doesn't have significant influence on the ridership during the weekday</strong>.<br>
-And it seems that the rain has significant influence on the ridership during the weekend.</p>
-<p>However, once again we're assuming equal distribution of the rain throughout every day of the week.<br>
-This is valid assumption but since our sample with days that fall on weekend is even smaller we might compare average number of rain entries on Saturday and Sunday:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[179]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">q</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">select day_week, avg(rain)</span>
-<span class="s">from data</span>
-<span class="s">where day_week &gt;= 5</span>
-<span class="s">group by day_week</span>
-<span class="s">&quot;&quot;&quot;</span>
-
-<span class="n">weekend_differences</span> <span class="o">=</span> <span class="n">pandasql</span><span class="o">.</span><span class="n">sqldf</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="nb">locals</span><span class="p">())</span>
-<span class="k">print</span> <span class="n">weekend_differences</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>   day_week  avg(rain)
-0         5   0.061368
-1         6   0.199882
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>It is clear that rain is about three times more frequent on Sunday than on Saturday.<br>
-If there are significant differences in ridership between Saturday and Sunday this might also have influence on our results.</p>
-<p>So, let's do Mann-Whitney test on Saturday and Sunday with regard to rain:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[166]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">saturday</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">data_rain_weekend</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;ENTRIESn_hourly&quot;</span><span class="p">][(</span><span class="n">data</span><span class="o">.</span><span class="n">rain</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">day_week</span> <span class="o">==</span> <span class="n">saturday</span><span class="p">)]</span>
-<span class="n">data_no_rain_weekend</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;ENTRIESn_hourly&quot;</span><span class="p">][(</span><span class="n">data</span><span class="o">.</span><span class="n">rain</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">day_week</span> <span class="o">==</span> <span class="n">saturday</span><span class="p">)]</span>
-<span class="n">u</span><span class="p">,</span><span class="n">p_saturday</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">mannwhitneyu</span><span class="p">(</span><span class="n">data_rain_weekend</span><span class="p">,</span> <span class="n">data_no_rain_weekend</span><span class="p">)</span>
-<span class="k">print</span> <span class="s">&quot;p_saturday: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p_saturday</span> <span class="o">*</span> <span class="n">two_tail_test_multiplier</span><span class="p">)</span>
-
-<span class="n">sunday</span> <span class="o">=</span> <span class="mi">6</span>
-<span class="n">data_rain_weekend</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;ENTRIESn_hourly&quot;</span><span class="p">][(</span><span class="n">data</span><span class="o">.</span><span class="n">rain</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">day_week</span> <span class="o">==</span> <span class="n">sunday</span><span class="p">)]</span>
-<span class="n">data_no_rain_weekend</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;ENTRIESn_hourly&quot;</span><span class="p">][(</span><span class="n">data</span><span class="o">.</span><span class="n">rain</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">day_week</span> <span class="o">==</span> <span class="n">sunday</span><span class="p">)]</span>
-<span class="n">u</span><span class="p">,</span><span class="n">p_sunday</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">mannwhitneyu</span><span class="p">(</span><span class="n">data_rain_weekend</span><span class="p">,</span> <span class="n">data_no_rain_weekend</span><span class="p">)</span>
-<span class="k">print</span> <span class="s">&quot;p_sunday: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p_sunday</span> <span class="o">*</span> <span class="n">two_tail_test_multiplier</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>p_saturday: 0.556341730073
-p_sunday: 0.400738919598
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Both p values for Saturday and Sunday are not even approaching the p critical value</strong>.<br>
-We can conclude from this tests that rain has no significant influence on ridership.</p>
+In case that ridership during the weekend is significantly different than the rest of the week we might come to a different conclusion about rain effect on ridership and put more emphasis on the influence of weekend on ridership.<br>
+This point will be adressed later.</p>
 
 </div>
 </div>
@@ -1015,8 +854,8 @@ We can conclude from this tests that rain has no significant influence on riders
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Answer">Answer<a class="anchor-link" href="#Answer">&#182;</a></h4><p>Statistical significance of these results is 0.05<br>
-Calculated p value from Mann-Whitney u-test in all tests is greater than p critical value (after accounting for other possible causes for difference in data).<br>
-Based on this calculation H0 hypothesis is accepted.</p>
+Calculated p value from Mann-Whitney u-test is 5.48213914249e-06 which is way smaller than our critical value.<br>
+Based on this calculation H0 hypothesis can be rejected.</p>
 
 </div>
 </div>
@@ -1091,7 +930,7 @@ Based on this calculation H0 hypothesis is accepted.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[167]:</div>
+<div class="prompt input_prompt">In&nbsp;[96]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">linear_regression</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
@@ -1111,7 +950,7 @@ Based on this calculation H0 hypothesis is accepted.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[168]:</div>
+<div class="prompt input_prompt">In&nbsp;[97]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">normalize_features</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
@@ -1133,7 +972,7 @@ Based on this calculation H0 hypothesis is accepted.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[169]:</div>
+<div class="prompt input_prompt">In&nbsp;[98]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">recover_params</span><span class="p">(</span><span class="n">means</span><span class="p">,</span> <span class="n">std_devs</span><span class="p">,</span> <span class="n">norm_intercept</span><span class="p">,</span> <span class="n">norm_params</span><span class="p">):</span>
@@ -1157,7 +996,7 @@ Based on this calculation H0 hypothesis is accepted.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[170]:</div>
+<div class="prompt input_prompt">In&nbsp;[99]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">compute_r_squared</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">predicted_data</span><span class="p">):</span>
@@ -1187,7 +1026,7 @@ Based on this calculation H0 hypothesis is accepted.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[171]:</div>
+<div class="prompt input_prompt">In&nbsp;[100]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">predictions</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span> 
@@ -1235,7 +1074,7 @@ Based on this calculation H0 hypothesis is accepted.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[172]:</div>
+<div class="prompt input_prompt">In&nbsp;[101]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">data_intercept</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1257,7 +1096,7 @@ Based on this calculation H0 hypothesis is accepted.</p>
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>r_squared: 0.51890249398
+<pre>r_squared: 0.525678889486
 </pre>
 </div>
 </div>
@@ -1341,7 +1180,7 @@ the selected features will contribute to the predictive power of your model.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[173]:</div>
+<div class="prompt input_prompt">In&nbsp;[108]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">print</span> <span class="s">&quot;R^2 coefficient: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">r_squared</span><span class="p">)</span>
@@ -1357,7 +1196,7 @@ the selected features will contribute to the predictive power of your model.</p>
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>R^2 coefficient: 0.51890249398
+<pre>R^2 coefficient: 0.525678889486
 </pre>
 </div>
 </div>
@@ -1435,7 +1274,7 @@ Remember to add appropriate titles and axes labels to your plots. Also, please a
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[174]:</div>
+<div class="prompt input_prompt">In&nbsp;[103]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;ENTRIESn_hourly&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="p">],</span> <span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">&quot;ENTRIESn_hourly&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;rain&quot;</span><span class="p">))</span> <span class="o">+</span> <span class="n">geom_histogram</span><span class="p">(</span><span class="n">binwidth</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span> <span class="o">+</span> \
@@ -1862,11 +1701,11 @@ FkRJAwAAsKD/B/Ohy6pPpkQbAAAAAElFTkSuQmCC
 
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[174]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[103]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;ggplot: (8789790628157)&gt;</pre>
+<pre>&lt;ggplot: (8789791956521)&gt;</pre>
 </div>
 
 </div>
@@ -1911,7 +1750,7 @@ Also we can see that rain entries are less frequent than non-rain entries.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[175]:</div>
+<div class="prompt input_prompt">In&nbsp;[104]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">q</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
@@ -2290,11 +2129,11 @@ L4QQQgghupW0kAohhBBCiG4lAakQQgghhOhWEpAKIYQQQohuJQGpEEIIIYToVhKQCiGEEEKIbvVf
 
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[175]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[104]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;ggplot: (8789790527901)&gt;</pre>
+<pre>&lt;ggplot: (8789792196313)&gt;</pre>
 </div>
 
 </div>
@@ -2315,7 +2154,7 @@ L4QQQgghupW0kAohhBBCiG4lAakQQgghhOhWEpAKIYQQQohuJQGpEEIIIYToVhKQCiGEEEKIbvVf
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[176]:</div>
+<div class="prompt input_prompt">In&nbsp;[105]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">q</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
@@ -2961,11 +2800,11 @@ k2o7ZnzfBSIAAAAASUVORK5CYII=
 
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[176]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[105]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;ggplot: (8789790333537)&gt;</pre>
+<pre>&lt;ggplot: (8789792695717)&gt;</pre>
 </div>
 
 </div>
@@ -2986,7 +2825,7 @@ k2o7ZnzfBSIAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[177]:</div>
+<div class="prompt input_prompt">In&nbsp;[106]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">q</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
@@ -3622,11 +3461,11 @@ MgwLNCIiIqIMwwKNiIiIKMP8B4i6FgarhIb4AAAAAElFTkSuQmCC
 
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[177]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[106]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;ggplot: (8789790764473)&gt;</pre>
+<pre>&lt;ggplot: (8789792078105)&gt;</pre>
 </div>
 
 </div>
@@ -3700,10 +3539,10 @@ The two graphs practically overlap in those two cases.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Answer">Answer<a class="anchor-link" href="#Answer">&#182;</a></h4><p>First thing that led me to this conclusion was Mann-Whitney u-tests I performed on the dataset.<br>
-These tests returned p value which was higher than p critical value and this led me to conclusion that rain has no significant influence on the ridership.</p>
+<h4 id="Answer">Answer<a class="anchor-link" href="#Answer">&#182;</a></h4><p>First thing that led me to this conclusion was Mann-Whitney u-test I performed on the dataset.
+This test returned p value which was higher than p_critical and this led me to conclusion that rain has no significant influence on the ridership.</p>
 <p>Secondly, when performing linear regression and calculating R^2 - result did not change at all when including <em>rain</em> feature into the model.<br>
-From this conclusion can be made that there is no correlation between rain and the ridership nor can we predict more accurate results when accounting for the rain factor.</p>
+From this conclude that there is no correlation between rain and the ridership nor we can predict more accurate results when accounting for the rain factor.</p>
 
 </div>
 </div>
