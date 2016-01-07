@@ -25,12 +25,12 @@ expected = ["ulica", "prolaz", "trg", "cesta", "avenija", "park", "put", "stube"
 
 # UPDATE THIS VARIABLE
 mapping = { "Ul.": "Ulica",
-            "Ul":"Ulica",
             "Av.":"Avenija"
             }
 
 
 def audit_street_type(street_types, street_name):
+    global mapping
     found = False
     for name in expected:
         idx = street_name.lower().find(name)
@@ -38,10 +38,16 @@ def audit_street_type(street_types, street_name):
             found = True
     if street_name.lower().strip().find(' ') < 0:
         found = True
+        #print street_name
+        try:
+            print int(street_name)
+        except:
+            pass
     if found == False and (street_name not in street_types):
         street_types.add(street_name)
-        print street_name
-
+        for key in mapping:
+            if street_name.lower().find(key.lower()) >= 0:
+                print street_name
 
 
 
@@ -80,9 +86,9 @@ def test():
     #assert len(st_types) == 3
     #pprint.pprint(dict(st_types))
 
-    for st_type, ways in st_types.iteritems():
-        for name in ways:
-            better_name = update_name(name, mapping)
+    #for st_type, ways in st_types.iteritems():
+        #for name in ways:
+            #better_name = update_name(name, mapping)
             #print name, "=>", better_name
             # if name == "West Lexington St.":
             #     assert better_name == "West Lexington Street"
@@ -90,5 +96,34 @@ def test():
             #     assert better_name == "Baldwin Road"
 
 
+def process_map(filename):
+    keys = set()
+    for _, element in ET.iterparse(filename):
+        if element.tag == "tag":
+            # YOUR CODE HERE
+            attribute = element.attrib['k']
+
+            if attribute not in keys:
+                keys.add(attribute)
+                print attribute
+
+
+
+def count_unique_users(filename):
+    users = set()
+
+    for _, element in ET.iterparse(filename):
+        if element.tag == 'node' or element.tag == 'way' or element.tag == 'relation':
+            uid = element.attrib['uid']
+            #print uid
+            if uid not in users:
+                users.add(uid)
+
+    print len(users)
+
+
 if __name__ == '__main__':
-    test()
+    #test()
+    #process_map(OSMFILE)
+    #count_unique_users(OSMFILE)
+    audit(OSMFILE)
