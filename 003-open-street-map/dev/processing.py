@@ -10,8 +10,10 @@ Your task in this exercise has two steps:
     We have provided a simple test so that you see what exactly is expected
 """
 import xml.etree.cElementTree as ET
-import re
 import pprint
+import re
+import codecs
+import json
 
 ###############################################################################################################
 
@@ -109,18 +111,101 @@ def process_map(filename):
 
 
 ###############################################################################################################
+# CREATING LIST OF DICTIONARIES FROM XML DATA
+###############################################################################################################
 
-def create_json_from_xml_file(filename):
-    pass
+lower = re.compile(r'^([a-z]|_)*$')
+lower_colon = re.compile(r'^([a-z]|_)*:([a-z]|_)*$')
+problemchars = re.compile(r'[=\+/&<>;\'"\?%#$@\,\. \t\r\n]')
 
 
 ###############################################################################################################
 
+def create_list_of_dictionaries_from_xml_file(file_in, pretty = False):
+    # You do not need to change this file
+    file_out = "{0}.json".format(file_in)
+    data = []
+    with codecs.open(file_out, "w") as fo:
+        for _, element in ET.iterparse(file_in):
+            el = shape_element(element)
+            if el:
+                data.append(el)
+                if pretty:
+                    fo.write(json.dumps(el, indent=2)+"\n")
+                else:
+                    fo.write(json.dumps(el) + "\n")
+    return data
+
+
+###############################################################################################################
+
+def shape_element(element):
+    node = {}
+    if element.tag == "node" or element.tag == "way":
+        # YOUR CODE HERE
+        keys = element.attrib.keys()
+        node['id'] = element.attrib['id']
+        node['type'] = element.tag
+        if 'visible' in keys:
+            node['visible'] = element.attrib['visible']
+        if 'lon' in keys and 'lat' in keys:
+            node['pos'] = [float(element.attrib['lat']),float(element.attrib['lon'])]
+
+        node['created'] = {}
+        node['created']['version'] = element.attrib['version']
+        node['created']['changeset'] = element.attrib['changeset']
+        node['created']['timestamp'] = element.attrib['timestamp']
+        node['created']['user'] = element.attrib['user']
+        node['created']['uid'] = element.attrib['uid']
+
+
+        for tag in element.iter('tag'):
+            k = tag.attrib['k']
+            if k == 'cuisine':
+                node['cuisine'] = tag.attrib['v']
+            if k == 'amenity':
+                node['amenity'] = tag.attrib['v']
+            if k == 'name':
+                node['name'] = tag.attrib['v']
+            if k == 'phone':
+                node['phone'] = tag.attrib['v']
+            if lower_colon.match(k) and k.startswith('addr:'):
+                if 'address' not in node:
+                    node['address'] = {}
+                node['address'][k[5:]] = tag.attrib['v']
+
+        for tag in element.iter('nd'):
+            if 'node_refs' not in node:
+                node['node_refs'] = []
+            node['node_refs'].append(tag.attrib['ref'])
+
+        return node
+    else:
+        return None
+
+
+###############################################################################################################
+# CREATING MONGODB
+###############################################################################################################
+
+def save_data_to_file(data):
+    with open('list_of_dictionaries_zagreb', 'w') as f:
+        for item in data:
+            f.write("%s\n" % item)
+
+
+
+
 if __name__ == '__main__':
     # test()
     # process_map(OSMFILE)
-    pprint.pprint(street_types_from_file(OSMFILE))
-    count_unique_users(OSMFILE)
-    create_json_from_xml_file(OSMFILE)
-    import os
-    print os.getcwd()
+    #pprint.pprint(street_types_from_file(OSMFILE))
+    #count_unique_users(OSMFILE)
+    data = create_list_of_dictionaries_from_xml_file(OSMFILE)
+
+    pprint.pprint(data[2384])
+    print '----------------------'
+    pprint.pprint(data[2813])
+    print '----------------------'
+    pprint.pprint(data[2926])
+    print '----------------------'
