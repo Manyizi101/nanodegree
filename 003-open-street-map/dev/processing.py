@@ -236,8 +236,8 @@ if __name__ == '__main__':
     # process_map(OSMFILE)
     #pprint.pprint(street_types_from_file(OSMFILE))
     #count_unique_users(OSMFILE)
-    #data = create_list_of_dictionaries_from_xml_file(OSMFILE)
-    create_mongo_db_from_data([])
+    data = create_list_of_dictionaries_from_xml_file(OSMFILE)
+    #create_mongo_db_from_data([])
 
     # pprint.pprint(data[2384])
     # print '----------------------'
