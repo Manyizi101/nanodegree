@@ -31,8 +31,10 @@ abbreviation_mapping = {"Ul.": "Ulica",
 def street_types_from_file(osmfile):
     osm_file = open(osmfile, "r")
 
-    street_types_count = {"ulica": 0, "prolaz": 0, "trg": 0, "cesta": 0, "avenija": 0, "park": 0, "put": 0, "stube": 0,
-                          "prilaz": 0, "aleja": 0, "perivoj": 0, "zavoj": 0, "ugao": 0, "odvojak": 0, "error": 0}
+    street_types_count = {"ulica": 0, "prolaz": 0, "trg": 0, "cesta": 0,
+                          "avenija": 0, "park": 0, "put": 0, "stube": 0,
+                          "prilaz": 0, "aleja": 0, "perivoj": 0, "zavoj": 0,
+                          "ugao": 0, "odvojak": 0, "error": 0}
 
     for event, elem in ET.iterparse(osm_file, events=("start",)):
         if elem.tag == "node" or elem.tag == "way":
@@ -66,8 +68,8 @@ def sum_streets_by_type(street_types_count, street_name):
             street_types_count["error"] += 1
             print 'Street type as a number error: ' + str(street_name_as_number)
         except:
-            # when street type is not mentioned we default to type "ulica"
-            # this is equivalent to "Street" by country's convention
+            # when street type is not mentioned we default to type "ulica" by Croatia's convention
+            # "ulica" is equivalent to "Street"
             street_types_count["ulica"] += 1
 
 
@@ -190,6 +192,11 @@ def shape_element(element):
 
 from pymongo import MongoClient
 
+JSON_GENERATED_FROM_XML = 'data/zagreb_croatia.osm.json'
+
+
+###############################################################################################################
+
 def get_current_mongo_db_instance():
     client = MongoClient('mongodb://localhost:27017')
     db = client.new_db
@@ -202,7 +209,7 @@ def initialize_mongo_db():
     db = get_current_mongo_db_instance()
 
     data = []
-    with open('data/zagreb_croatia.osm.json', 'r') as f:
+    with open(JSON_GENERATED_FROM_XML, 'r') as f:
         for line in f:
             data.append(json.loads(line))
 
@@ -218,12 +225,11 @@ def mongo_db_make_aggregation_query(query):
     entries = db.locations.aggregate(query)
 
     i = 0
-    print 'Printing first three aggregation results:\n'
     for en in entries:
         if i < 3:
             i += 1
             pprint.pprint(en)
-
+    print '\n'
 
 
 ###############################################################################################################
@@ -255,9 +261,55 @@ if __name__ == '__main__':
 
     #mongo_db_drop_collection()
     #initialize_mongo_db()
-    mongo_db_make_aggregation_query([{'$match': {"amenity": "kindergarten",
-                                                 "created.user": "Matija Nalis"}},
-                                     {'$limit': 10}])
+    # mongo_db_make_aggregation_query([{'$match': {"amenity": "kindergarten",
+    #                                              "created.user": "Matija Nalis"}},
+    #                                  {'$limit': 10}])
+    #
+    # mongo_db_make_aggregation_query([{'$match': {"amenity": "kindergarten"}},
+    #                                  {'$group': {'_id': '$amenity',
+    #                                              'count': {'$sum': 1}}}])
+    #
+    # mongo_db_make_aggregation_query([{'$match': {"amenity": "school"}},
+    #                                  {'$group': {'_id': '$amenity',
+    #                                              'count': {'$sum': 1}}}])
+    #
+    # mongo_db_make_aggregation_query([{'$match': {"amenity": "pub"}},
+    #                                  {'$group': {'_id': '$amenity',
+    #                                              'count': {'$sum': 1}}}])
+    #
+    # mongo_db_make_aggregation_query([{'$match': {"amenity": "cafe"}},
+    #                                  {'$group': {'_id': '$amenity',
+    #                                              'count': {'$sum': 1}}}])
+
+    db = get_current_mongo_db_instance()
+    # print '\nNumber of documents: ' + str(db.locations.find().count())
+    # print 'Number of nodes: ' + str(db.locations.find({"type": "node"}).count())
+    # print 'Number of ways: ' + str(db.locations.find({"type": "way"}).count()) + '\n'
+    #
+    # mongo_db_make_aggregation_query([{'$match': {"created.user": {'$exists': 1}}},
+    #                                  {'$group': {'_id':'$created.user',
+    #                                             'count':{'$sum': 1}}},
+    #                                  {'$group': {'_id': 'Number of unique users',
+    #                                             'count': {'$sum': 1}}}])
+    # print 'Top 1 contributing user:'
+    # mongo_db_make_aggregation_query([{'$group': {'_id':'$created.user',
+    #                                              'count':{'$sum': 1}}},
+    #                                  {'$sort': {'count': -1}},
+    #                                  {'$limit': 1}])
+
+    print 'Minimum number of posts per user:'
+    mongo_db_make_aggregation_query([{'$group': {'_id': '$created.user',
+                                                 'count': {'$sum': 1}}},
+                                     {'$sort': {'count': 1}},
+                                     {'$limit': 1}])
+
+    mongo_db_make_aggregation_query([{'$group': {'_id': '$created.user',
+                                                 'count': {'$sum': 1}}},
+                                     {'$match': {'count': {'$eq': 3}}},
+                                     {'$group': {'_id':'Users having three posts',
+                                                 'count':{'$sum': 1}}}])
+
+
 
     # pprint.pprint(data[2384])
     # print '----------------------'
