@@ -188,6 +188,41 @@ def shape_element(element):
 # CREATING MONGODB
 ###############################################################################################################
 
+from pymongo import MongoClient
+
+def create_mongo_db_from_data(data):
+    client = MongoClient('mongodb://localhost:27017')
+    db = client.new_db
+
+
+    i = 0
+    with open('data/zagreb_croatia.osm.json', 'r') as f:
+        for line in f:
+            #data = json.load(f.read())
+
+            data.append(json.loads(line))
+
+
+
+    db.locations.insert_many(data)
+    entries = db.locations.aggregate([{'$match':{"amenity": "kindergarten"}},{'$limit':2}])
+
+    for en in entries:
+        pprint.pprint(en)
+
+    print 'g.o.'
+
+
+
+
+
+
+
+
+
+
+
+
 def save_data_to_file(data):
     with open('list_of_dictionaries_zagreb', 'w') as f:
         for item in data:
@@ -201,11 +236,12 @@ if __name__ == '__main__':
     # process_map(OSMFILE)
     #pprint.pprint(street_types_from_file(OSMFILE))
     #count_unique_users(OSMFILE)
-    data = create_list_of_dictionaries_from_xml_file(OSMFILE)
+    #data = create_list_of_dictionaries_from_xml_file(OSMFILE)
+    create_mongo_db_from_data([])
 
-    pprint.pprint(data[2384])
-    print '----------------------'
-    pprint.pprint(data[2813])
-    print '----------------------'
-    pprint.pprint(data[2926])
-    print '----------------------'
+    # pprint.pprint(data[2384])
+    # print '----------------------'
+    # pprint.pprint(data[2813])
+    # print '----------------------'
+    # pprint.pprint(data[2926])
+    # print '----------------------'
