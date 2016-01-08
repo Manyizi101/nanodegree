@@ -190,35 +190,50 @@ def shape_element(element):
 
 from pymongo import MongoClient
 
-def create_mongo_db_from_data(data):
+def get_current_mongo_db_instance():
     client = MongoClient('mongodb://localhost:27017')
     db = client.new_db
+    return db
 
 
-    i = 0
+###############################################################################################################
+
+def initialize_mongo_db():
+    db = get_current_mongo_db_instance()
+
+    data = []
     with open('data/zagreb_croatia.osm.json', 'r') as f:
         for line in f:
-            #data = json.load(f.read())
-
             data.append(json.loads(line))
 
-
-
     db.locations.insert_many(data)
-    entries = db.locations.aggregate([{'$match':{"amenity": "kindergarten"}},{'$limit':2}])
 
+    print 'Database initialized ...'
+
+
+###############################################################################################################
+
+def mongo_db_make_aggregation_query(query):
+    db = get_current_mongo_db_instance()
+    entries = db.locations.aggregate(query)
+
+    i = 0
+    print 'Printing first three aggregation results:\n'
     for en in entries:
-        pprint.pprint(en)
-
-    print 'g.o.'
-
-
+        if i < 3:
+            i += 1
+            pprint.pprint(en)
 
 
 
+###############################################################################################################
+
+def mongo_db_drop_collection():
+    db = get_current_mongo_db_instance()
+    db.locations.drop()
 
 
-
+###############################################################################################################
 
 
 
@@ -236,8 +251,13 @@ if __name__ == '__main__':
     # process_map(OSMFILE)
     #pprint.pprint(street_types_from_file(OSMFILE))
     #count_unique_users(OSMFILE)
-    data = create_list_of_dictionaries_from_xml_file(OSMFILE)
-    #create_mongo_db_from_data([])
+    #data = create_list_of_dictionaries_from_xml_file(OSMFILE)
+
+    #mongo_db_drop_collection()
+    #initialize_mongo_db()
+    mongo_db_make_aggregation_query([{'$match': {"amenity": "kindergarten",
+                                                 "created.user": "Matija Nalis"}},
+                                     {'$limit': 10}])
 
     # pprint.pprint(data[2384])
     # print '----------------------'
