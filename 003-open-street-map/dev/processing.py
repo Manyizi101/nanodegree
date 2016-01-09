@@ -230,7 +230,7 @@ if __name__ == '__main__':
     pprint.pprint(street_types_from_file(OSMFILE))
     create_list_of_dictionaries_from_xml_file(OSMFILE)
 
-    ## dropping the collection to prevent multiple data adding to the MongoDB
+    # dropping the collection to prevent multiple data adding to the MongoDB
     mongo_db_drop_collection()
 
     initialize_mongo_db()

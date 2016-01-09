@@ -377,7 +377,7 @@ And since there are only three instances of this error in entire dataset we can 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">os</span>
@@ -385,8 +385,8 @@ And since there are only three instances of this error in entire dataset we can 
 <span class="n">path_to_osm</span> <span class="o">=</span> <span class="s">&#39;/home/veich/projects/nanodegree/003-open-street-map/dev/data/zagreb_croatia.osm&#39;</span>
 <span class="n">path_to_json</span> <span class="o">=</span> <span class="s">&#39;/home/veich/projects/nanodegree/003-open-street-map/dev/data/zagreb_croatia.osm.json&#39;</span>
 
-<span class="k">print</span> <span class="s">&#39;zagreb_croatia.osm .......... &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">path_to_osm</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">))</span> <span class="o">+</span> <span class="s">&#39; MB&#39;</span>
-<span class="k">print</span> <span class="s">&#39;zagreb_croatia.osm.json ..... &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">path_to_json</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">))</span> <span class="o">+</span> <span class="s">&#39; MB&#39;</span>
+<span class="k">print</span> <span class="s">&#39;zagreb_croatia.osm .......... &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">path_to_osm</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span> <span class="o">+</span> <span class="s">&#39; MB&#39;</span>
+<span class="k">print</span> <span class="s">&#39;zagreb_croatia.osm.json ..... &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">path_to_json</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span> <span class="o">+</span> <span class="s">&#39; MB&#39;</span>
 </pre></div>
 
 </div>
@@ -399,8 +399,8 @@ And since there are only three instances of this error in entire dataset we can 
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>zagreb_croatia.osm .......... 78 MB
-zagreb_croatia.osm.json ..... 85 MB
+<pre>zagreb_croatia.osm .......... 81 MB
+zagreb_croatia.osm.json ..... 89 MB
 </pre>
 </div>
 </div>
@@ -471,7 +471,7 @@ zagreb_croatia.osm.json ..... 85 MB
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="mi">1073445</span>
+<div class=" highlight hl-ipython2"><pre><span class="mi">357815</span>
 </pre></div>
 
 </div>
@@ -506,7 +506,7 @@ zagreb_croatia.osm.json ..... 85 MB
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="mi">194913</span>
+<div class=" highlight hl-ipython2"><pre><span class="mi">64971</span>
 </pre></div>
 
 </div>
@@ -529,8 +529,8 @@ zagreb_croatia.osm.json ..... 85 MB
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="o">&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">locations</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([{</span><span class="s">&#39;$match&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;created.user&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;$exists&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}}},</span>
-                          <span class="p">{</span><span class="s">&#39;$group&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;_id&#39;</span><span class="p">:</span><span class="s">&#39;$created.user&#39;</span><span class="p">,</span>
-                                     <span class="s">&#39;count&#39;</span><span class="p">:{</span><span class="s">&#39;$sum&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}}},</span>
+                          <span class="p">{</span><span class="s">&#39;$group&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;_id&#39;</span><span class="p">:</span> <span class="s">&#39;$created.user&#39;</span><span class="p">,</span>
+                                     <span class="s">&#39;count&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;$sum&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}}},</span>
                           <span class="p">{</span><span class="s">&#39;$group&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;_id&#39;</span><span class="p">:</span> <span class="s">&#39;Number of unique users&#39;</span><span class="p">,</span>
                                      <span class="s">&#39;count&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;$sum&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}}}])</span>                                  
 </pre></div>
@@ -567,8 +567,8 @@ zagreb_croatia.osm.json ..... 85 MB
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="o">&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">locations</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([{</span><span class="s">&#39;$group&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;_id&#39;</span><span class="p">:</span><span class="s">&#39;$created.user&#39;</span><span class="p">,</span>
-                                      <span class="s">&#39;count&#39;</span><span class="p">:{</span><span class="s">&#39;$sum&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}}},</span>
+<div class=" highlight hl-ipython2"><pre><span class="o">&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">locations</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([{</span><span class="s">&#39;$group&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;_id&#39;</span><span class="p">:</span> <span class="s">&#39;$created.user&#39;</span><span class="p">,</span>
+                                      <span class="s">&#39;count&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;$sum&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}}},</span>
                           <span class="p">{</span><span class="s">&#39;$sort&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;count&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}},</span>
                           <span class="p">{</span><span class="s">&#39;$limit&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}])</span>  
 </pre></div>
@@ -583,7 +583,7 @@ zagreb_croatia.osm.json ..... 85 MB
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;Vedran V&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">333606</span><span class="p">}</span>
+<div class=" highlight hl-ipython2"><pre><span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;Vedran V&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">111202</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -596,7 +596,47 @@ zagreb_croatia.osm.json ..... 85 MB
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Minimum-number-of-posts-per-user">Minimum number of posts per user<a class="anchor-link" href="#Minimum-number-of-posts-per-user">&#182;</a></h3>
+<h3 id="Top-10-users-contribution-sum">Top 10 users contribution sum<a class="anchor-link" href="#Top-10-users-contribution-sum">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="o">&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">locations</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([{</span><span class="s">&#39;$group&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;_id&#39;</span><span class="p">:</span> <span class="s">&#39;$created.user&#39;</span><span class="p">,</span>
+                                      <span class="s">&#39;count&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;$sum&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}}},</span>
+                          <span class="p">{</span><span class="s">&#39;$sort&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;count&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}},</span>
+                          <span class="p">{</span><span class="s">&#39;$limit&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
+                          <span class="p">{</span><span class="s">&#39;$group&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;_id&#39;</span><span class="p">:</span> <span class="s">&#39;Sum of top 10 users contributions&#39;</span><span class="p">,</span>
+                                      <span class="s">&#39;sum_all&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;$sum&#39;</span><span class="p">:</span> <span class="s">&#39;$count&#39;</span><span class="p">}}}])</span>  
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;Sum of top 10 users contributions&#39;</span><span class="p">,</span> <span class="s">u&#39;sum_all&#39;</span><span class="p">:</span> <span class="mi">355280</span><span class="p">}</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Minimum-number-of-contributions-per-user">Minimum number of contributions per user<a class="anchor-link" href="#Minimum-number-of-contributions-per-user">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -621,7 +661,7 @@ zagreb_croatia.osm.json ..... 85 MB
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;Aury88&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<div class=" highlight hl-ipython2"><pre><span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;Aury88&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -660,7 +700,7 @@ zagreb_croatia.osm.json ..... 85 MB
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;Users having three posts&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">155</span><span class="p">}</span>
+<div class=" highlight hl-ipython2"><pre><span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;Number of users having only one post&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">155</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -740,9 +780,9 @@ Bottom 155 users which make up <strong>27.24%</strong> of all users contributed 
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;parking&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">2193</span><span class="p">}</span>
-<span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;cafe&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">1950</span><span class="p">}</span>
-<span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;restaurant&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">1008</span><span class="p">}</span>
+<div class=" highlight hl-ipython2"><pre><span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;parking&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">731</span><span class="p">}</span>
+<span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;cafe&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">650</span><span class="p">}</span>
+<span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;restaurant&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">336</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -812,9 +852,9 @@ It would be also useful to entrepreneurs who seek to expand their business to ot
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">228</span><span class="p">}</span>
-<span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;Smart&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">}</span>
-<span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;Luna&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">}</span>
+<div class=" highlight hl-ipython2"><pre><span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">76</span><span class="p">}</span>
+<span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;Smart&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="s">u&#39;Luna&#39;</span><span class="p">,</span> <span class="s">u&#39;count&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
 </pre></div>
 
 </div>
