@@ -291,11 +291,11 @@ if __name__ == '__main__':
     #                                             'count':{'$sum': 1}}},
     #                                  {'$group': {'_id': 'Number of unique users',
     #                                             'count': {'$sum': 1}}}])
-    # print 'Top 1 contributing user:'
-    # mongo_db_make_aggregation_query([{'$group': {'_id':'$created.user',
-    #                                              'count':{'$sum': 1}}},
-    #                                  {'$sort': {'count': -1}},
-    #                                  {'$limit': 1}])
+    print 'Top 3 contributing users:'
+    mongo_db_make_aggregation_query([{'$group': {'_id':'$created.user',
+                                                 'count':{'$sum': 1}}},
+                                     {'$sort': {'count': -1}},
+                                     {'$limit': 3}])
 
     print 'Minimum number of posts per user:'
     mongo_db_make_aggregation_query([{'$group': {'_id': '$created.user',
@@ -308,6 +308,31 @@ if __name__ == '__main__':
                                      {'$match': {'count': {'$eq': 3}}},
                                      {'$group': {'_id':'Users having three posts',
                                                  'count':{'$sum': 1}}}])
+
+    print 'Top 10 users contribution sum:'
+    mongo_db_make_aggregation_query([{'$group': {'_id': '$created.user',
+                                                 'count': {'$sum': 1}}},
+                                     {'$sort': {'count': -1}},
+                                     {'$limit': 10},
+                                     {'$group': {'_id': 'Sum of top 10 users contributions',
+                                                 'sum_all': {'$sum': '$count'}}}])
+
+    print 'Top 3 amenities:'
+    mongo_db_make_aggregation_query([{'$match':{'amenity':{'$exists': 1}}},
+                                     {'$group': {'_id':'$amenity',
+                                                 'count':{'$sum': 1}}},
+                                     {'$sort': {'count': -1}},
+                                     {'$limit': 3}])
+
+    print 'Most popular cafe chain:'
+    mongo_db_make_aggregation_query([{'$match':{'amenity': {'$exists': 1},
+                                                'amenity': 'cafe'}},
+                                     {'$group': {'_id': '$name',
+                                                 'count': {'$sum': 1}}},
+                                     {'$sort': {'count': -1}},
+                                     {'$limit': 3}])
+
+
 
 
 
