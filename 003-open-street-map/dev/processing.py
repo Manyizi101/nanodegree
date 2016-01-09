@@ -86,19 +86,6 @@ def update_abbreviated_name_if_needed(name):
 
 
 ###############################################################################################################
-
-def count_unique_users(filename):
-    users = set()
-    for _, element in ET.iterparse(filename):
-        if element.tag == 'node' or element.tag == 'way' or element.tag == 'relation':
-            uid = element.attrib['uid']
-            # print uid
-            if uid not in users:
-                users.add(uid)
-    print '\nNumber of unique users: ' + str(len(users))
-
-
-###############################################################################################################
 # CREATING LIST OF DICTIONARIES FROM XML DATA
 ###############################################################################################################
 
@@ -239,9 +226,8 @@ def save_data_to_file(data):
 
 
 if __name__ == '__main__':
-    print 'Show street abbreviation fixes, street name errors and street type count:'
+    print '\nShow street abbreviation fixes, street name errors and street type count:'
     pprint.pprint(street_types_from_file(OSMFILE))
-    count_unique_users(OSMFILE)
     create_list_of_dictionaries_from_xml_file(OSMFILE)
 
     ## dropping the collection to prevent multiple data adding to the MongoDB
@@ -253,14 +239,14 @@ if __name__ == '__main__':
     print 'Number of nodes: ' + str(db.locations.find({"type": "node"}).count())
     print 'Number of ways: ' + str(db.locations.find({"type": "way"}).count()) + '\n'
 
-    mongo_db_make_aggregation_query([{'$match': {"created.user": {'$exists': 1}}},
-                                     {'$group': {'_id':'$created.user',
-                                                'count':{'$sum': 1}}},
+    mongo_db_make_aggregation_query([{'$match': {'created.user': {'$exists': 1}}},
+                                     {'$group': {'_id': '$created.user',
+                                                 'count': {'$sum': 1}}},
                                      {'$group': {'_id': 'Number of unique users',
-                                                'count': {'$sum': 1}}}])
+                                                 'count': {'$sum': 1}}}])
     print 'Top 3 contributing users:'
-    mongo_db_make_aggregation_query([{'$group': {'_id':'$created.user',
-                                                 'count':{'$sum': 1}}},
+    mongo_db_make_aggregation_query([{'$group': {'_id': '$created.user',
+                                                 'count': {'$sum': 1}}},
                                      {'$sort': {'count': -1}},
                                      {'$limit': 3}])
 
@@ -272,9 +258,9 @@ if __name__ == '__main__':
 
     mongo_db_make_aggregation_query([{'$group': {'_id': '$created.user',
                                                  'count': {'$sum': 1}}},
-                                     {'$match': {'count': {'$eq': 3}}},
-                                     {'$group': {'_id':'Users having three posts',
-                                                 'count':{'$sum': 1}}}])
+                                     {'$match': {'count': {'$eq': 1}}},
+                                     {'$group': {'_id': 'Number of users having only one post',
+                                                 'count': {'$sum': 1}}}])
 
     print 'Top 10 users contribution sum:'
     mongo_db_make_aggregation_query([{'$group': {'_id': '$created.user',
@@ -285,15 +271,15 @@ if __name__ == '__main__':
                                                  'sum_all': {'$sum': '$count'}}}])
 
     print 'Top 3 amenities:'
-    mongo_db_make_aggregation_query([{'$match':{'amenity':{'$exists': 1}}},
-                                     {'$group': {'_id':'$amenity',
-                                                 'count':{'$sum': 1}}},
+    mongo_db_make_aggregation_query([{'$match': {'amenity':{'$exists': 1}}},
+                                     {'$group': {'_id': '$amenity',
+                                                 'count': {'$sum': 1}}},
                                      {'$sort': {'count': -1}},
                                      {'$limit': 3}])
 
     print 'Most popular cafe chain:'
-    mongo_db_make_aggregation_query([{'$match':{'amenity': {'$exists': 1},
-                                                'amenity': 'cafe'}},
+    mongo_db_make_aggregation_query([{'$match': {'amenity': {'$exists': 1}}},
+                                     {'$match': {'amenity': 'cafe'}},
                                      {'$group': {'_id': '$name',
                                                  'count': {'$sum': 1}}},
                                      {'$sort': {'count': -1}},
