@@ -66,7 +66,7 @@ def sum_streets_by_type(street_types_count, street_name):
         try:
             street_name_as_number = int(street_name)
             street_types_count["error"] += 1
-            print 'Street type as a number error: ' + str(street_name_as_number)
+            print 'Street name as a number error: ' + str(street_name_as_number)
         except:
             # when street type is not mentioned we default to type "ulica" by Croatia's convention
             # "ulica" is equivalent to "Street"
@@ -99,20 +99,6 @@ def count_unique_users(filename):
 
 
 ###############################################################################################################
-
-def process_map(filename):
-    keys = set()
-    for _, element in ET.iterparse(filename):
-        if element.tag == "tag":
-            # YOUR CODE HERE
-            attribute = element.attrib['k']
-
-            if attribute not in keys:
-                keys.add(attribute)
-                print attribute
-
-
-###############################################################################################################
 # CREATING LIST OF DICTIONARIES FROM XML DATA
 ###############################################################################################################
 
@@ -124,7 +110,7 @@ problemchars = re.compile(r'[=\+/&<>;\'"\?%#$@\,\. \t\r\n]')
 ###############################################################################################################
 
 def create_list_of_dictionaries_from_xml_file(file_in, pretty = False):
-    # You do not need to change this file
+    print '\nCreating JSON file from XML ...'
     file_out = "{0}.json".format(file_in)
     data = []
     with codecs.open(file_out, "w") as fo:
@@ -136,8 +122,7 @@ def create_list_of_dictionaries_from_xml_file(file_in, pretty = False):
                     fo.write(json.dumps(el, indent=2)+"\n")
                 else:
                     fo.write(json.dumps(el) + "\n")
-    return data
-
+    print 'JSON file created\n'
 
 ###############################################################################################################
 
@@ -207,15 +192,16 @@ def get_current_mongo_db_instance():
 
 def initialize_mongo_db():
     db = get_current_mongo_db_instance()
-
     data = []
+
+    print 'Loading data into MongoDB ...'
     with open(JSON_GENERATED_FROM_XML, 'r') as f:
         for line in f:
             data.append(json.loads(line))
 
     db.locations.insert_many(data)
 
-    print 'Database initialized ...'
+    print 'MongoDB loaded'
 
 
 ###############################################################################################################
@@ -253,44 +239,25 @@ def save_data_to_file(data):
 
 
 if __name__ == '__main__':
-    # test()
-    # process_map(OSMFILE)
-    #pprint.pprint(street_types_from_file(OSMFILE))
-    #count_unique_users(OSMFILE)
-    #data = create_list_of_dictionaries_from_xml_file(OSMFILE)
+    print 'Show street abbreviation fixes, street name errors and street type count:'
+    pprint.pprint(street_types_from_file(OSMFILE))
+    count_unique_users(OSMFILE)
+    create_list_of_dictionaries_from_xml_file(OSMFILE)
 
-    #mongo_db_drop_collection()
-    #initialize_mongo_db()
-    # mongo_db_make_aggregation_query([{'$match': {"amenity": "kindergarten",
-    #                                              "created.user": "Matija Nalis"}},
-    #                                  {'$limit': 10}])
-    #
-    # mongo_db_make_aggregation_query([{'$match': {"amenity": "kindergarten"}},
-    #                                  {'$group': {'_id': '$amenity',
-    #                                              'count': {'$sum': 1}}}])
-    #
-    # mongo_db_make_aggregation_query([{'$match': {"amenity": "school"}},
-    #                                  {'$group': {'_id': '$amenity',
-    #                                              'count': {'$sum': 1}}}])
-    #
-    # mongo_db_make_aggregation_query([{'$match': {"amenity": "pub"}},
-    #                                  {'$group': {'_id': '$amenity',
-    #                                              'count': {'$sum': 1}}}])
-    #
-    # mongo_db_make_aggregation_query([{'$match': {"amenity": "cafe"}},
-    #                                  {'$group': {'_id': '$amenity',
-    #                                              'count': {'$sum': 1}}}])
+    ## dropping the collection to prevent multiple data adding to the MongoDB
+    mongo_db_drop_collection()
 
+    initialize_mongo_db()
     db = get_current_mongo_db_instance()
-    # print '\nNumber of documents: ' + str(db.locations.find().count())
-    # print 'Number of nodes: ' + str(db.locations.find({"type": "node"}).count())
-    # print 'Number of ways: ' + str(db.locations.find({"type": "way"}).count()) + '\n'
-    #
-    # mongo_db_make_aggregation_query([{'$match': {"created.user": {'$exists': 1}}},
-    #                                  {'$group': {'_id':'$created.user',
-    #                                             'count':{'$sum': 1}}},
-    #                                  {'$group': {'_id': 'Number of unique users',
-    #                                             'count': {'$sum': 1}}}])
+    print '\nNumber of documents: ' + str(db.locations.find().count())
+    print 'Number of nodes: ' + str(db.locations.find({"type": "node"}).count())
+    print 'Number of ways: ' + str(db.locations.find({"type": "way"}).count()) + '\n'
+
+    mongo_db_make_aggregation_query([{'$match': {"created.user": {'$exists': 1}}},
+                                     {'$group': {'_id':'$created.user',
+                                                'count':{'$sum': 1}}},
+                                     {'$group': {'_id': 'Number of unique users',
+                                                'count': {'$sum': 1}}}])
     print 'Top 3 contributing users:'
     mongo_db_make_aggregation_query([{'$group': {'_id':'$created.user',
                                                  'count':{'$sum': 1}}},
@@ -333,12 +300,6 @@ if __name__ == '__main__':
                                      {'$limit': 3}])
 
 
-
-
-
-    # pprint.pprint(data[2384])
-    # print '----------------------'
-    # pprint.pprint(data[2813])
-    # print '----------------------'
-    # pprint.pprint(data[2926])
-    # print '----------------------'
+###############################################################################################################
+# END
+###############################################################################################################
