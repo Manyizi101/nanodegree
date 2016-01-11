@@ -207,8 +207,8 @@ div#notebook {
 <a href="#problems">1. Problems Encountered in the Map</a><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#problems-1">Abbreviated street names</a><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#problems-2">No designation for a street type</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#problems-3">Street type can be in various positions in the street name with variable capitalization</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#problems-4">Numbers in place of street names</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#problems-3">Numbers in place of street names</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#problems-4">Phone numbers come in multitude of formats</a><br>
 <a href="#overview">2. Data Overview</a><br>
 <a href="#ideas">3. Additional Ideas</a><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ideas-1">Contributor Statistics</a><br>
@@ -257,9 +257,9 @@ Also, I wondered if there are some language-specific problems which might be enc
 <p>In my data inspection I ran into several problems:</p>
 <ul>
 <li>Abbreviated street names  </li>
-<li>No designation for a street type  </li>
-<li>Street type can be in various positions in the street name with variable capitalization  </li>
+<li>No designation for a street type   </li>
 <li>Numbers in place of street names  </li>
+<li>Phone numbers come in multitude of formats</li>
 </ul>
 
 </div>
@@ -300,7 +300,8 @@ Also, I found "Av." which is shortened from "Avenija" (translates into "Avenue")
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Frequently you have street names without explicit designation of a street type ("Gajnice", "Jankomir", "Vijenac", ...).<br>
-In Croatia when you don't have street type specified the default street type is considered to be "Ulica" (i.e. "Street" in translation).</p>
+In Croatia when you don't have street type specified the default street type is considered to be "Ulica" (i.e. "Street" in translation).<br>
+The solution is to default <strong>"type": "ulica"</strong> to all instances which do not contain any of the official street types in their name.</p>
 
 </div>
 </div>
@@ -310,28 +311,7 @@ In Croatia when you don't have street type specified the default street type is 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Street-type-can-be-in-various-positions-in-the-street-name-with-variable-capitalization"><span id="problems-3">Street type can be in various positions in the street name with variable capitalization</span><a class="anchor-link" href="#Street-type-can-be-in-various-positions-in-the-street-name-with-variable-capitalization">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Unlike the Chicago example from the course lessons where we could see that street type comes at the end of the street name, in Zagreb dataset we can see that is not the case here.<br>
-Street type "Ulica" can be at the beginning ("Ulica Ljudevita Gaja") as well as on the end of the street name ("Dalmatinska ulica").<br>
-Also note here that here street type "Ulica" is in one case capitalized and in other it's not.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Numbers-in-place-of-street-names"><span id="problems-4">Numbers in place of street names</span><a class="anchor-link" href="#Numbers-in-place-of-street-names">&#182;</a></h3>
+<h3 id="Numbers-in-place-of-street-names"><span id="problems-3">Numbers in place of street names</span><a class="anchor-link" href="#Numbers-in-place-of-street-names">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -342,7 +322,29 @@ Also note here that here street type "Ulica" is in one case capitalized and in o
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>There are entries in the dataset which have numbers as the street names ("3", "22", "49").<br>
 As the street namse In Croatia cannot be numbers this is obviously an error.<br>
-And since there are only three instances of this error in entire dataset we can ignore them completely.</p>
+And since there are only three instances of this error in entire dataset we can remove them from the dataset completely.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Phone-numbers-come-in-multitude-of-formats"><span id="problems-4">Phone numbers come in multitude of formats</span><a class="anchor-link" href="#Phone-numbers-come-in-multitude-of-formats">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Phone numbers come in many diferent shapes and formats.<br>
+Preferred way of displaying numbers is "<strong>+385</strong>1234567" where the plus sign and first three digits are mandatory.<br>
+It should not contain any spaces, slashes or alphabetical characters (eg. "Tel: 00385 1 3324 506", "01/ 2990 072").<br>
+It should contain country and area codes and not be void of one or both of these (eg. "08007778")</p>
 
 </div>
 </div>
@@ -915,7 +917,8 @@ It can also be seen on the cafe chain example that many of the names are missing
 <li><a href="http://stackoverflow.com/questions/6591931/getting-file-size-in-python">http://stackoverflow.com/questions/6591931/getting-file-size-in-python</a>  </li>
 <li><a href="http://github.com/dunovank">http://github.com/dunovank</a> - iPython notebook styling  </li>
 <li><a href="http://stackoverflow.com/questions/4022827/how-to-insert-some-string-in-the-given-string-at-given-index-in-python#4023434">http://stackoverflow.com/questions/4022827/how-to-insert-some-string-in-the-given-string-at-given-index-in-python#4023434</a>  </li>
-<li>MongoDB documentation</li>
+<li>MongoDB documentation  </li>
+<li><a href="http://stackoverflow.com/questions/1249388/how-do-we-remove-all-non-numeric-characters-from-a-string-in-python">http://stackoverflow.com/questions/1249388/how-do-we-remove-all-non-numeric-characters-from-a-string-in-python</a></li>
 </ol>
 
 </div>
@@ -933,7 +936,7 @@ It can also be seen on the cafe chain example that many of the names are missing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>
@@ -949,7 +952,7 @@ It can also be seen on the cafe chain example that many of the names are missing
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[27]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <style>*{background: #f8f8f8;}</style>
@@ -957,6 +960,19 @@ It can also be seen on the cafe chain example that many of the names are missing
 
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre> 
+</pre></div>
+
+</div>
 </div>
 </div>
 

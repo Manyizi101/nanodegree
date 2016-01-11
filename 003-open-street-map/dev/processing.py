@@ -207,6 +207,7 @@ def clean_phone_number(phone_number):
     if phone_number.startswith('0800'):
         phone_number = '+385' + phone_number[1:]
 
+    # in case of multiple phone numbers
     phone_number = phone_number.replace(';', ';+')
 
     return phone_number
@@ -349,7 +350,7 @@ if __name__ == '__main__':
                                      {'$sort': {'count': -1}},
                                      {'$limit': 3}])
 
-    print 'Phone numbers sample:'
+    print 'Properly formatted phone numbers sample:'
     mongo_db_make_aggregation_query([{'$match': {'phone': {'$exists': 1}}},
                                      {'$project': {'_id': '$phone'}},
                                      {'$limit': 3}])
